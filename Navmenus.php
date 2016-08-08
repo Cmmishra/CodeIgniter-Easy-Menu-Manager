@@ -5,24 +5,22 @@ class Navmenus extends CI_Controller {
 
 	/*
 	 * Design and setup of navigation menus
-	 * Aim: for bavnebys
-	 * Security: Logined
-	 *
+	 * Author: KM Sium (kmsium@gmail.com)
+	 * GPU Licenced.
 	 * Maps to the following URL
-	 * 		http://www.biz.biz/admin/navmenus
-	 * This 
+	 * 		http://www.biz.biz/navmenus
+	 * 
+	 * Note: the application don't include language settings.
 	 */
-	 protected $adminDetails;
+	
+	//$structure variable is used when producing a menu i.e. writing the menu to public/views/incl/menu.php file. That is done to avoid creating and recreating the menu from the database everytime. Instead, menu.php is included from pages that display the menu typically header file.
+	
 	 protected $structure;
 	
 	 public function __construct(){
 	 
 	   parent::__construct();
-	   $this->load->library('visitortracker');
-$this->adminDetails=$this->visitortracker->returnuserdetails(true);
- 
-$this->lang->load('core',applanguage());
-	 $this->lang->load('menus',applanguage());
+
 	 $this->load->model('Menus_model');
 
 	 }
@@ -37,7 +35,8 @@ $this->lang->load('core',applanguage());
 
 function display_children($parent=0) { 
 
-    // retrieve all children of $parent 
+    // retrieve all children of $parent It can retrieve and work upto for levels. If you need more, add here lvl4,lvl5...
+	//id is auto number of the menu in the database table, name is its name, class is any CSS class applicable to the menu and link is the target of the menu
 
     $categories = array();
 $pool = array();
@@ -78,12 +77,7 @@ foreach ($q as $row ) {
                    'level' => 3);
         $categories[] = $c;
     }
-   /* if (in_array($row['lvl4_id'], $pool) === false && isset($row['lvl4_name'])) {
-        $c = array('id' => $row['lvl4_id'],
-                   'name' => $row['lvl4_name'],
-                   'level' => 4);
-        $categories[] = $c;
-    }*/
+  
     $pool[] = $row['lvl0_id'];
     $pool[] = $row['lvl1_id'];
     $pool[] = $row['lvl2_id'];
@@ -91,40 +85,14 @@ foreach ($q as $row ) {
    // $pool[] = $row['lvl4_id'];
 }
 
+//Below are items that possibly can be linked to menus. This is similar to posts or pages of wordpress so user can select and link existing content to menus.
+/*
 $this->load->model('Services_model');
 $data['services']=$this->Services_model->services(2);
-//get projects
-
-$this->load->model('Projects_model');
-$data['projects']=$this->Projects_model->projects(2);
-
-//get page gropus
-$this->load->model('Pages_model');
-$data['pages']=$this->Pages_model->pagesParentChildren();
-
-//get gallery types
-$this->load->model('Gallery_model');
-$data['gallerytypes']=$this->Gallery_model->gallerytypes();
-
-$this->load->model('About_model');
-$data['aboutus']=$this->About_model->sections(2);
-
-$this->load->model('Events_model');
-$data['eventtypes']=$this->Events_model->eventtypes();
-
-//get blogtypes types
-$this->load->model('Blogs_model');
-$data['blogtypes']=$this->Blogs_model->blogtypes(2);
-
-     
-
-$headerdata['visitordetails']=$this->adminDetails;
-$headerdata['navmenu']='true';
-$this->load->view('admin/incl/header',$headerdata);
-$data['msg']='';
+*/
 $data['categories']=$categories;
 $this->load->view('admin/menus',$data);
-$this->load->view('admin/incl/footer');
+
 
 
 }
@@ -136,6 +104,7 @@ $this->load->view('admin/incl/footer');
 
 //-----------------------------------
 private function childsubmenus($menuid,$e){
+//this is used only when user wants to produce the menu structure to menu.php. It fetches children of a given menu item and creates a <ul> submenu items with the class sub-menu for easy CSS styling.
 $topmenusorder=1;
 foreach ($e as $key => $block) {
     //echo $block['link'].' '.$block['cls'].' '.$block['id'].' '.$block['label'].'<br/>'; /* echo parent*/
@@ -158,6 +127,8 @@ $this->structure.="<ul class='sub-menu'>";
 	//produce menus
 	
 	//save the menu to db then write it to the menu struture.
+	//it accepts the strucutre in the form of json data, saves it to database and writes to file.
+	//if no file writing is needed, delete all file operation related lines.
 	
 	$response = json_decode($_POST['s'], true); // decoding received JSON to array
 	
