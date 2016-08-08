@@ -1,75 +1,25 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');?>  <section id="main-content">
-          <section class="wrapper">
-          	<h3><i class="fa fa-angle-right"></i> <?php echo $this->lang->line('biz_admin_navmenus');?></h3>
-            <span id="generate" style="color:#FF0000; font-weight:bold;"></span> <input type="button" id="savenavmenus" class="btn btn-theme reallyclear fright" value="<?php echo $this->lang->line('biz_admin_menus_generate');?>"/> 
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');?> 
+
+<!-- GENERATOR BUTTON . Click the button to save the menu structure to database as well as save it to menu.php file in views/public/incl/menu.php-->
+
+            <span id="generate" style="color:#FF0000; font-weight:bold;"></span> <input type="button" id="savenavmenus" class="btn btn-theme reallyclear fright" value="Save Menu"/> 
             
             <div style="clear:both; width:100%; height:10px;"></div>  
             
              <div class="mymenus">
              <div id="menusources">
               <select id="menu_target" class="form-control ">
-                               <option value="<?php echo base_url();?>#"><?php echo $this->lang->line('biz_admin_menus_dest_none');?></option>
+                               <option value="<?php echo base_url();?>#">None</option>
                               
-                             <option value="<?php echo base_url();?>home"><?php echo $this->lang->line('biz_admin_menus_dest_home');?></option>
-                             <option value="<?php echo base_url();?>about"><?php echo $this->lang->line('biz_admin_menus_dest_about');?></option>
-                            <?php
-							 if(!empty($aboutus)){
-						
-							 foreach($aboutus as $abtinfo){
-							 
-							$aid=$this->switcher->hideme($abtinfo['hpid']);
-							$aname=stripslashes($abtinfo['hptitle']);
-							
-							 ?>
-                              <option value="<?php echo base_url();?>about/more/<?php echo $aid;?>"><?php echo " &nbsp;&nbsp;&nbsp;&nbsp;".$aname;?></option>
-                             <?php
-							 }
-							 }
-							 ?>
-                             <option value="<?php echo base_url();?>contact"><?php echo $this->lang->line('biz_admin_menus_dest_contact');?></option>
-                             <option value="<?php echo base_url();?>prices"><?php echo $this->lang->line('biz_admin_menus_dest_price');?></option>                         <option value="<?php echo base_url();?>events"><?php echo $this->lang->line('biz_admin_menus_dest_events');?></option>
-                             <?php
-							 if(!empty($eventtypes)){
-							 foreach($eventtypes as $info){
-							 $aid=$this->switcher->hideme($info['eventtypeid']);
-							 $aname=stripslashes($info['eventtypename']);
-							 ?>
-                              <option value="<?php echo base_url();?>events/cat/<?php echo $aid;?>"><?php echo " &nbsp;&nbsp;&nbsp;&nbsp;".$aname;?></option>
-                             <?php
-							 }
-							 }
-							 ?>
-                             <option value="<?php echo base_url();?>experts"><?php echo $this->lang->line('biz_admin_menus_dest_experts');?></option>
-                             <option value="<?php echo base_url();?>clients"><?php echo $this->lang->line('biz_admin_menus_dest_clients');?></option>
-                             <option value="<?php echo base_url();?>faq"><?php echo $this->lang->line('biz_admin_menus_dest_faq');?></option>
-                             <option value="<?php echo base_url();?>blogs"><?php echo $this->lang->line('biz_admin_menus_dest_blog');?></option>
-                             
-                              <?php
-							 if(!empty($blogtypes)){
-							 foreach($blogtypes as $info){
-							 $aid=$this->switcher->hideme($info['blogtypeid']);
-							 $aname=stripslashes($info['blogtypename']);
-							 ?>
-                              <option value="<?php echo base_url();?>blogs/categories/<?php echo $aid;?>/1/1"><?php echo " &nbsp;&nbsp;&nbsp;&nbsp;".$aname;?></option>
-                             <?php
-							 }
-							 }
-							 ?>
-                           <option value="<?php echo base_url();?>testimonials"><?php echo $this->lang->line('biz_admin_menus_dest_testimonial');?></option>
-                              <option value="<?php echo base_url();?>gallery"><?php echo $this->lang->line('biz_admin_menus_dest_gallery');?></option>
-                             <?php
-							 if(!empty($gallerytypes)){
-							 foreach($gallerytypes as $info){
-							 $gtypeid=$this->switcher->hideme($info['occassionid']);
-							 $gtypename=stripslashes($info['occassionname']);
-							 ?>
-                              <option value="<?php echo base_url();?>gallery/cat/<?php echo $gtypeid;?>"><?php echo " &nbsp;&nbsp;&nbsp;&nbsp;".$gtypename;?></option>
-                             <?php
-							 }
-							 }
-							 ?>
-							 <option value="<?php echo base_url();?>services"><?php echo $this->lang->line('biz_admin_menus_dest_services');?></option>
+                             <option value="<?php echo base_url();?>home">Home</option>
+                             <option value="<?php echo base_url();?>about">About</option>
+                           
+                             <option value="<?php echo base_url();?>contact">Contact</option>
+                            
+							 <option value="<?php echo base_url();?>services">Services</option>
 							 <?php
+							 //here can go specific services from the database.
+							 /*
 							 if(!empty($services)){
 							 foreach($services as $info){
 							 $serviceid=$this->switcher->hideme($info['serviceid']);
@@ -81,62 +31,27 @@
 							 }
 							 }
 							 
-							 
-							 ?>
-							 <option value="<?php echo base_url();?>projects"><?php echo $this->lang->line('biz_admin_menus_dest_projects');?></option>
-							 <?php
-							 if(!empty($projects)){
-							 foreach($projects as $info){
-							 $proid=$this->switcher->hideme($info['projectid']);
-							 $proTitle=stripslashes($info['projecttitle']);
-							 ?>
-                             <option value="<?php echo base_url();?>projects/detail/<?php echo $proid;?>"><?php echo " &nbsp;&nbsp;&nbsp;&nbsp;".$proTitle;?></option>
-                             
-                             <?php
-							 }
-							 }
-							 
-							 if(!empty($pages)){
+							 */
 							 ?>
 							
-							 <?php
-							 foreach($pages as $info){
-							 $type=$info['val'];//if 0 we are on parent page, else children pages
-							 $id=$this->switcher->hideme($info['id']);
-							 $proTitle=stripslashes($info['title']);
-							  if($type==0){
-							 ?>
-                             <option value="<?php echo base_url();?>content/top/<?php echo $id;?>"><?php echo $proTitle;?></option>
-                             
-                             <?php
-							 }
-							 else {//specific page
-							 $type=$this->switcher->hideme($type);
-							 ?>
-							 <option value="<?php echo base_url();?>content/detail/<?php echo $id;?>/<?php echo $type;?>"><?php echo " &nbsp;&nbsp;&nbsp;&nbsp;".$proTitle;?></option>
-                             <?php
-							 }
-							 }
-							 }
-							 ?>
-                             </select>
                              <br/>
                              <input type="button" class="btn btn-theme addtonavmenu" value="<?php echo $this->lang->line('biz_admin_menus_add');?>" />
              
              <br/><br/>
              <hr/>
-             <?php echo $this->lang->line('biz_admin_menus_name');?>:<br/>
+             <!-- menu editor-->
+             Name:<br/>
              <input type="text" class="form-control requiredfields" id="mname" name="mname" required="required" value="" maxlength="75">
-              <?php echo $this->lang->line('biz_admin_menus_target');?>:<br/>
+             Target:<br/>
              <input type="text" class="form-control requiredfields" id="mtarget" name="mtarget" required="required" value="" maxlength="255">
-             <?php echo $this->lang->line('biz_admin_menus_class');?>:<br/>
+             CSS Class:<br/>
              <input type="text" class="form-control requiredfields" id="mclass" name="mclass" value="" maxlength="255">
             <br/>
-              <input type="button" class="btn btn-theme updatenavmenu" value="<?php echo $this->lang->line('biz_admin_edit');?>" />
-              <span class="hidden" id="missingmenuname"><?php echo $this->lang->line('biz_admin_menus_namemissing');?></span>
+              <input type="button" class="btn btn-theme updatenavmenu" value="Edit" />
+              <span class="hidden" id="missingmenuname">Please Enter Name</span>
              </div>
              
-            
+            <!-- Print the current menu structure-->
 <div id="menustructure"> 
 <div class="dd" id="nestable">
 <ol class="dd-list" id="webmenus">
@@ -212,14 +127,14 @@ if ($count == 1) {
 	
 	
  $("#savenavmenus").click(function() {
-     
+     //clicked Save menu button. Send POST request to Navmenus to save the structure to database and menu.php
     
  //send the requests now
     var structure=updateOutput($('#nestable').data('output', $('#generate')));
 
 //
 if(structure==false){
-alert('<?php echo $this->lang->line("biz_admin_oldbrowser");?>');
+alert('Your browser is old');
 return false;
 }
  working.html('');
@@ -232,7 +147,7 @@ return false;
 working.html('<img src="<?php echo base_url();?>/assets/img/loading24.gif"/>');
        $.ajax({
                 type: "POST",
-                url: "<?php echo base_url();?>admin/navmenus/producemenus",
+                url: "<?php echo base_url();?>navmenus/producemenus",
                
                 data: postForm,
                 dataType : "json",
@@ -261,22 +176,3 @@ working.html('<img src="<?php echo base_url();?>/assets/img/loading24.gif"/>');
 	});
 </script>
  
-
-</div>             
-             
-             
-             </div>
-             
-                     
-                 
-                           </div>
-                      
-                      <hr />
-                      
-           
-         
-
-		
-		
-		</section><! --/wrapper -->
-      </section><!-- /MAIN CONTENT -->
