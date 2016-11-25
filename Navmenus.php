@@ -11,12 +11,26 @@ class Navmenus extends CI_Controller {
 	 * 		http://www.biz.biz/navmenus
 	 * 
 	 * Note: the application don't include language settings.
+	 
+	  $structure Menu structure could be saved into physical file. The structure is globally stored in the $structure variable and written to file. That would reduce database load since require() is quicker.
+	 $menufile is the file where the menu can be written too. The structure is saved to database. However, it can also be written automatically to file. That is speedy typically. Typically, you would have a file structure like this:
+	 
+	 application/views/includes/header.php
+	 
+	 Menus go in header.php, typically in <ul>...</ul> version. So, instead of writting the menus, do
+	 
+	 <ul class="" id=""><?php require('menu.php');?></ul>
+	 
+	 the <li> items will be produced each time you produce your menus. That also gives you plenty of rooms to style your menus.
+	 
+	 leave $menufile empty if you don't want to save to file.
+	 
 	 */
 	
-	//$structure variable is used when producing a menu i.e. writing the menu to public/views/incl/menu.php file. That is done to avoid creating and recreating the menu from the database everytime. Instead, menu.php is included from pages that display the menu typically header file.
+	
 	
 	 protected $structure;
-	
+	protected $menufile=APPPATH.'views/public/incl/menu.php';
 	 public function __construct(){
 	 
 	   parent::__construct();
@@ -163,10 +177,10 @@ $this->structure.='<li><a href="'.$block['link'].'" '.$block['cls'].'>'.$block['
 
 
 
-//menus found. write them to file now
-//write to file now
+if($this->menufile){
+//write to menu file
 $this->load->helper('file');
-$fileName=APPPATH.'views/public/incl/menu.php';
+$fileName=$this->menufile;
 if ( ! write_file($fileName, $this->structure))
 {
         echo -1;
@@ -177,6 +191,11 @@ else
         echo 1;
 		exit;
 }
+}
+else{
+echo 1;exit;
+}
+
 
 
 	}		
