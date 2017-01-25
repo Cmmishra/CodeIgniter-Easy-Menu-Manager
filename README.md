@@ -38,7 +38,7 @@ Put Contentsearch.php in application/controller/admin directory (Optional but de
 Model:
 
 Put Menus_model in application/models directory
-Put Contentsearch_model in application/models directory (Optional. You can see how data is returned when search for contents to auto-include to menu designer)
+
 
 Views:
 
