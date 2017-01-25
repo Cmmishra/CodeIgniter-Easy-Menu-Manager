@@ -6,7 +6,7 @@ function loadingImage(show,element,msg=''){
 $(element).html('');
 	}
 	else{
-		$(element).html('<img src="'+Assets+'dist/img/loading5.gif"/> '+msg);
+		$(element).html('wait...'+msg);
 	}
 }
 
