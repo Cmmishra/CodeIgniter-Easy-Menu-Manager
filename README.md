@@ -115,13 +115,13 @@ topright: to include the top right menu
 bottomnavbar: to include the bottom/footer main navigation menu
 bottomendnavbar: to include the bottom end main navigation menu
 
-The functions generate the required structure in the form of a <ul> element along with any possible submenus. It is your job to decorate them with CSS properly. The functions take four arguements in the following order:
+The functions generate the required structure in the form of a ul element along with any possible submenus. It is your job to decorate them with CSS properly. The functions take four arguements in the following order:
 
-1.Classname : provide a CSS class for the main/top <ul> element. Optional.
+1. Classname : provide a CSS class for the main/top ul element. Optional.
 
 2. Language: the language of the requested menu. It can be manual ('english') or a value from session or cookie. Required.
 
-3. ID: provide an ID for the main/top <ul> element. Optional.
+3. ID: provide an ID for the main/top ul element. Optional.
 
 4. Submenus CSS Class: CSS name for submenus of the menu. Optional.
 
